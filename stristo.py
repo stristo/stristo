@@ -19,8 +19,8 @@ def write(message, token=None):
     return token
 
 
-def read(token, num=1):
-    return s.obtain(token, num)
+def read(token, num=1, full=False):
+    return s.obtain(token, num, full)
 
 
 @app.route('/write/<message>')
@@ -41,6 +41,10 @@ def read_newest_message(token):
 @app.route('/read/<token>/<amount>')
 def read_messages(token, amount):
     return read(token, amount)
+
+@app.route('/readfull/<token>/<amount>')
+def read_full_messages(token, amount):
+    return read(token, amount, full=True)
 
 
 if __name__ == '__main__':

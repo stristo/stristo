@@ -1,15 +1,17 @@
-from flaskext import couchdb
 import time
+from datetime import datetime
+from flaskext.couchdb import (Document, CouchDBManager, TextField,
+                              ListField, DictField, DateTimeField, Mapping)
 
 
-class MessageContainer(couchdb.Document):
-    messages = couchdb.ListField(couchdb.TextField())
+class MessageContainer(Document):
+    messages = ListField(DictField())
 
 
 class Storage:
 
     def __init__(self, app):
-        self.manager = couchdb.CouchDBManager()
+        self.manager = CouchDBManager()
         self.manager.add_document(MessageContainer)
         self.manager.setup(app)
 
@@ -20,12 +22,23 @@ class Storage:
         else:
             message_container = MessageContainer(id=token)
 
-        message_container.messages = [value] + list(message_container.messages)
+        msg = {'value': value, 'created': str(datetime.now())}
+        message_container.messages = [msg] + list(message_container.messages)
         message_container.store()
 
-    def obtain(self, token, limit):
+    def obtain(self, token, limit, full):
 
-        if MessageContainer.load(token):
-            messages = MessageContainer.load(token).messages[:int(limit)]
-            return str([m.encode('utf-8') for m in messages])
-        return "TOKEN %s is invalid!" % token
+        if not MessageContainer.load(token):
+            return "TOKEN %s is invalid!" % token
+
+        messages_unicode = MessageContainer.load(token).messages[:int(limit)]
+        messages = []
+        for message in messages_unicode:
+            messages.append(
+                {str(k): str(v) for (k, v) in message.items()}
+            )
+
+        if full:
+            return str(messages)
+
+        return str([m['value'] for m in messages])
