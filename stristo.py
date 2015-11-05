@@ -2,6 +2,7 @@
 
 from flask import Flask
 import storage
+import uuid
 
 app = Flask(__name__)
 app.config.update(
@@ -13,7 +14,7 @@ s = storage.Storage(app)
 
 def write(message, token=None):
     if not token:
-        token = "NEWTOKEN"
+        token = uuid.uuid4().hex
     s.store(token, message)
     return token
 
