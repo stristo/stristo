@@ -1,11 +1,13 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python2
 
 from flask import Flask
 import storage
 
 app = Flask(__name__)
-app.config["COUCHDB_SERVER"] = "http://localhost:5984"
-app.config["COUCHDB_DATABASE"] = "stristo"
+app.config.update(
+    COUCHDB_SERVER="http://localhost:5984",
+    COUCHDB_DATABASE="stristo"
+)
 s = storage.Storage(app)
 
 
@@ -13,7 +15,7 @@ def write(message, token=None):
     if not token:
         token = "NEWTOKEN"
     s.store(token, message)
-    return "OK"
+    return token
 
 
 def read(token, num=1):

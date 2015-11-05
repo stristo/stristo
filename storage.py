@@ -7,9 +7,8 @@ class Storage:
         self.manager = couchdb.CouchDBManager()
         self.manager.setup(app)
 
-    def store(token, value):
-        #couchdb.g.couch[token] = {'msg': value}
-        print("sd")
+    def store(self, token, value):
+        couchdb.g.couch[token] = {'msg': value}
 
-    def obtain(token, limit):
-        message = str(couchdb.g.couch.get(token))
+    def obtain(self, token, limit):
+        return str(couchdb.g.couch.get(token))
