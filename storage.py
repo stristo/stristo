@@ -20,7 +20,7 @@ class Storage:
         else:
             message_container = MessageContainer(id=token)
 
-        message_container.messages.append(value)
+        message_container.messages = [value] + list(message_container.messages)
         message_container.store()
 
     def obtain(self, token, limit):
