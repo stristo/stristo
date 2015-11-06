@@ -30,6 +30,7 @@ dirspec==13.10
 docker-py==1.4.0
 docutils==0.12
 duplicity==0.6.23
+gunicorn==17.5
 hamster-indicator==0.0.0
 html5lib==0.999
 httplib2==0.8

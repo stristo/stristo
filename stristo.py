@@ -42,6 +42,7 @@ def read_newest_message(token):
 def read_messages(token, amount):
     return read(token, amount)
 
+
 @app.route('/readfull/<token>/<amount>')
 def read_full_messages(token, amount):
     return read(token, amount, full=True)
