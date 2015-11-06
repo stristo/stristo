@@ -48,4 +48,5 @@ def read_full_messages(token, amount):
 
 
 if __name__ == '__main__':
+    # Only executed if directly run (not via wsgi)
     app.run(debug=True)
