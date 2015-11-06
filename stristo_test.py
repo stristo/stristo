@@ -11,6 +11,7 @@ class StristoReadWriteTest(unittest.TestCase):
     def setUp(self):
         stristo.app.testing = True  # Enable debug message forwarding
         self.app = stristo.app.test_client()
+        print self.app.open(as_tuple=True, follow_redirects=True)
 
     def tearDown(self):
         pass

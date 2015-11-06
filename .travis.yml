@@ -4,7 +4,15 @@ python:
   - "2.7"
 
 # command to install dependencies
-install: "pip install -r requirements.txt"
+install:
+    - "pip install -r requirements.txt"
+
+services:
+    - couchdb
+
+before_script:
+    - curl -X PUT localhost:5984/stristo
 
 # command to run tests
-script: python stristo_test.py
+script:
+    - python stristo_test.py
