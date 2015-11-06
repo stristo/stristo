@@ -1,6 +1,7 @@
 #!/usr/bin/env python2
 
 from flask import Flask
+from flask.ext.cors import CORS
 import storage
 import uuid
 
@@ -10,6 +11,9 @@ app.config.update(
     COUCHDB_DATABASE="stristo"
 )
 s = storage.Storage(app)
+
+# Allow Cross Origin Resource Sharing on ALL ROUTES
+cors = CORS(app)
 
 
 def write(message, token=None):
