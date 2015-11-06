@@ -9,6 +9,7 @@ import ast
 class StristoReadWriteTest(unittest.TestCase):
 
     def setUp(self):
+        stristo.app.testing = True  # Enable debug message forwarding
         self.app = stristo.app.test_client()
 
     def tearDown(self):
