@@ -1,5 +1,5 @@
 echo "Starting stristo..."
-couchdb & 
+couchdb &
 touch GUNICORN.PID
 (gunicorn -w 4 -b 0.0.0.0:5050 stristo:app -p GUNICORN.PID -R --log-syslog &)
 echo "Gunicorn pid: $(cat GUNICORN.PID)"
