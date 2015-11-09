@@ -2,8 +2,9 @@
 
 from flask import Flask
 from flask.ext.cors import CORS
+from flask import jsonify
 import storage
-import uuid
+import exception
 
 app = Flask(__name__)
 app.config.update(
@@ -18,13 +19,23 @@ cors = CORS(app)
 
 def write(message, token=None):
     if not token:
-        token = uuid.uuid4().hex
+        token = s.new_token()
     s.store(token, message)
     return token
 
 
 def read(token, num=1, full=False):
-    return s.obtain(token, num, full)
+    try:
+        return s.obtain(token, num, full)
+    except AttributeError:
+        raise exception.InvalidUsage('Invalid Token')
+
+
+@app.errorhandler(exception.InvalidUsage)
+def handle_invalid_usage(error):
+    response = jsonify(error.to_dict())
+    response.status_code = error.status_code
+    return response
 
 
 @app.route('/write/<message>')
@@ -34,6 +45,8 @@ def write_to_new_token(message):
 
 @app.route('/write/<token>/<message>')
 def write_to_existing_token(message, token):
+    if token and not s.token_exists(token):
+        raise exception.InvalidUsage('Invalid Token')
     return write(message, token)
 
 
@@ -54,4 +67,4 @@ def read_full_messages(token, amount):
 
 if __name__ == '__main__':
     # Only executed if directly run (not via wsgi)
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', debug=True, port=5050)

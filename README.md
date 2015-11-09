@@ -16,7 +16,7 @@ Build status (dev-0.1) [![Build Status](https://travis-ci.org/stristo/stristo.sv
 
 #### Docker
 
-    docker run -d -p {PORT}:5050 stristo/stristo
+    docker run -d -p {PORT}:5050 stristo/stristo:0.1-dev
 
 Stristo is now (after ca. 5 seconds) available to receive or send messages.
 Substitute {PORT} with whatever port number you would like to free for stristo on your host machine.

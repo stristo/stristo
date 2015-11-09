@@ -63,6 +63,24 @@ class StristoReadWriteTest(unittest.TestCase):
             'ThisIsAnotherTestString'
         assert date_reg.match(ast.literal_eval(resp_read.data)[0]['created'])
 
+    def test_read_single_invalid_token(self):
+        resp_read = self.app.get('/read/THIS_IS_AN_INVALID_TOKEN')
+        print "Response :: %s" % resp_read.status_code
+        assert resp_read.status_code == 400
+        assert ast.literal_eval(resp_read.data)['status'] == "ERROR"
+
+    def test_read_single_full_invalid_token(self):
+        resp_read = self.app.get('/readfull/THIS_IS_AN_INVALID_TOKEN/10')
+        print "Response :: %s" % resp_read.status_code
+        assert resp_read.status_code == 400
+        assert ast.literal_eval(resp_read.data)['status'] == "ERROR"
+
+    def test_write_invalid_token(self):
+        resp_write = self.app.get('/write/THIS_IS_AN_INVALID_TOKEN/MessageHere')
+        print "Response :: %s" % resp_write.status_code
+        assert resp_write.status_code == 400
+        assert ast.literal_eval(resp_write.data)['status'] == "ERROR"
+
 
 if __name__ == '__main__':
     unittest.main()

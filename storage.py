@@ -1,4 +1,5 @@
 import time
+import uuid
 from datetime import datetime
 from flaskext.couchdb import (Document, CouchDBManager, TextField,
                               ListField, DictField, DateTimeField, Mapping)
@@ -15,6 +16,14 @@ class Storage:
         self.manager.add_document(MessageContainer)
         self.manager.setup(app)
 
+    def new_token(self):
+        return uuid.uuid4().hex
+
+    def token_exists(self, token):
+        if MessageContainer.load(token):
+            return True
+        return False
+
     def store(self, token, value):
 
         if MessageContainer.load(token):
@@ -28,8 +37,8 @@ class Storage:
 
     def obtain(self, token, limit, full):
 
-        if not MessageContainer.load(token):
-            return "TOKEN %s is invalid!" % token
+        if not self.token_exists(token):
+            raise AttributeError("Invalid Token")
 
         messages_unicode = MessageContainer.load(token).messages[:int(limit)]
         messages = []
