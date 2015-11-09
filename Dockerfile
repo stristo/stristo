@@ -12,4 +12,4 @@ RUN chmod +x run.sh
 
 RUN pip install -r requirements.txt
 
-ENTRYPOINT ./run.sh
+ENTRYPOINT source run.sh
