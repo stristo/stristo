@@ -50,4 +50,6 @@ class Storage:
         if full:
             return str(messages)
 
+        if len(messages) is 1:
+            return str(messages[0]['value'])
         return str([m['value'] for m in messages])

@@ -35,8 +35,8 @@ class StristoReadWriteTest(unittest.TestCase):
     def test_read_single(self):
         resp_write = self.app.get('/write/ThisIsATestString')
         resp_read = self.app.get('/read/%s' % resp_write.data)
-        print "Response :: %s" % ast.literal_eval(resp_read.data)[0]
-        assert ast.literal_eval(resp_read.data)[0] == 'ThisIsATestString'
+        print "Response :: %s" % resp_read.data
+        assert resp_read.data == 'ThisIsATestString'
 
     def test_read_multiple(self):
         resp_write_0 = self.app.get('/write/FirstString')
