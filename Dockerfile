@@ -1,7 +1,8 @@
-FROM klaemo/couchdb:1.6.1
+FROM resin/rpi-raspbian:jessie
 
 RUN apt-get update && apt-get install git python-pip -y
 RUN pip install gunicorn
+RUN pip install couchdb
 
 WORKDIR /opt
 RUN git clone -b dev-0.1 https://github.com/stristo/stristo.git
