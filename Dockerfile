@@ -2,7 +2,7 @@ FROM resin/rpi-raspbian:jessie
 
 RUN apt-get update && apt-get install git python-pip -y
 RUN pip install gunicorn
-RUN pip install couchdb
+RUN apt-get install couchdb
 
 RUN env HOME="/root" && export HOME
 
