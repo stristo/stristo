@@ -1,4 +1,6 @@
-Build status (dev-0.1) [![Build Status](https://travis-ci.org/stristo/stristo.svg?branch=dev-0.1)](https://travis-ci.org/stristo/stristo)
+**Build status**
+(dev-0.1) [![Build Status](https://travis-ci.org/stristo/stristo.svg?branch=dev-0.1)](https://travis-ci.org/stristo/stristo)
+
 
 ---
 
