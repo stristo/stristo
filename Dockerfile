@@ -8,8 +8,9 @@ WORKDIR /opt
 RUN git clone -b dev-0.1 https://github.com/stristo/stristo.git
 WORKDIR /opt/stristo
 
-RUN chmod +x run.sh
+RUN chmod +x ./run.sh
 
 RUN pip install -r requirements.txt
+RUN mkdir /var/run/couchdb
 
-ENTRYPOINT ["source run.sh"]
+ENTRYPOINT ["source ./run.sh"]
