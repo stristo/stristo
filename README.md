@@ -1,3 +1,5 @@
+<img href="http://stristo.com" src="./assets/logo.png" width="100">
+
 **Build status**
 (dev-0.1) [![Build Status](https://travis-ci.org/stristo/stristo.svg?branch=dev-0.1)](https://travis-ci.org/stristo/stristo)
 
@@ -7,6 +9,7 @@
 <center>
 <img href="http://stristo.com" src="./assets/concept.png" width="400">
 </center>
+
 
 
 ### Hand over token once, communicate forever...
